@@ -1,0 +1,13 @@
+[package]
+name = "bund_vm"
+version = "0.1.0"
+edition = "2021"
+description = "Virtual Machine for the BUND programming language"
+license-file = "LICENSE"
+homepage = "https://github.com/vulogov/bund_vm"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rust_dynamic = "0.4.0"
+rust_twostack = "0.2.0"
