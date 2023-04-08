@@ -2,6 +2,7 @@
 mod tests {
     #![allow(unused_imports)]
     use super::*;
+    use rust_dynamic::ctx::Context;
     use bund_vm::core::BUNDCore;
 
     #[test]

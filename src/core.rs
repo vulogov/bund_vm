@@ -7,14 +7,10 @@ pub struct BUNDCore{
 }
 
 impl BUNDCore {
-    fn init() -> Self {
+    pub fn init() -> Self {
         Self {
             version:    env!("CARGO_PKG_VERSION").to_string(),
             stack:      TS::new(),
         }
-    }
-    pub fn new() -> Self {
-        let res = BUNDCore::init();
-        res
     }
 }
