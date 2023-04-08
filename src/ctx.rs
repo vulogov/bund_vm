@@ -34,8 +34,8 @@ impl Context for BUNDCore {
         self.associations.insert(name.to_string(), v);
         true
     }
-    fn eval(&mut self, _value: Value)  -> Option<Value> {
-        None
+    fn eval(&mut self, value: Value)  -> Option<Value> {
+        self.eval_value(value)
     }
 
 }
