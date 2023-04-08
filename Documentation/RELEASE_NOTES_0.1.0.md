@@ -2,3 +2,4 @@
 
 * More test cases
 * BUNDCore now implements Context trait
+* BUNDCore.is_association() returns true or false depends if association exists or Not
