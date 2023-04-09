@@ -1,12 +1,14 @@
 use std::collections::VecDeque;
 use crate::core::BUNDCore;
+use crate::stdlib;
 use rust_dynamic::ctx::{Context, CtxApplicative};
 use rust_dynamic::value::{Value};
 
 
 impl Context for BUNDCore {
     fn new() -> BUNDCore {
-        let res = BUNDCore::init();
+        let mut res = BUNDCore::init();
+        stdlib::init_stdlib(&mut res);
         res
     }
     fn resolve(&self, name: &str) -> Option<CtxApplicative> {
