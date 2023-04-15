@@ -51,8 +51,8 @@ impl Context for BUNDCore {
         }
         true
     }
-    fn eval(&mut self, value: Value)  -> Option<Value> {
-        self.eval_value(value)
+    fn eval(&mut self, app: Option<CtxApplicative>, value: Value)  -> Option<Value> {
+        self.eval_value(app, value)
     }
 
 }

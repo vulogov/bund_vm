@@ -6,11 +6,11 @@ use rust_twostack::ts::{StackOp};
 
 
 impl BUNDCore {
-    pub fn eval_value(&mut self, _v: Value) -> Option<Value> {
+    pub fn eval_value(&mut self, _a: Option<CtxApplicative>, _v: Value) -> Option<Value> {
         None
     }
-    fn apply_and_eval(&mut self, value: Value) -> Result<&mut BUNDCore, Box<dyn std::error::Error>> {
-        match self.eval(value) {
+    fn apply_and_eval(&mut self, app: Option<CtxApplicative>, value: Value) -> Result<&mut BUNDCore, Box<dyn std::error::Error>> {
+        match self.eval(app, value) {
             Some(ret) => {
                 self.stack.push(ret);
             }
@@ -22,11 +22,11 @@ impl BUNDCore {
         match op {
             StackOp::None => {
                 match app.extra {
-                    NOEXTRA => return self.apply_and_eval(v),
+                    NOEXTRA => return self.apply_and_eval(Some(app), v),
                     JUSTONE => {
                         if v.attr_len() < 1 {
                             match self.stack.value(v, StackOp::TakeOne) {
-                                Ok(val) => return self.apply_and_eval(val),
+                                Ok(val) => return self.apply_and_eval(Some(app), val),
                                 Err(err) => return Err(err),
                             }
                         }
@@ -34,19 +34,19 @@ impl BUNDCore {
                     JUSTTWO => {
                         if v.attr_len() == 0 {
                             match self.stack.value(v, StackOp::TakeTwo) {
-                                Ok(val) => return self.apply_and_eval(val),
+                                Ok(val) => return self.apply_and_eval(Some(app), val),
                                 Err(err) => return Err(err),
                             }
                         } else if v.attr_len() == 1 {
                             match self.stack.value(v, StackOp::TakeOne) {
-                                Ok(val) => return self.apply_and_eval(val),
+                                Ok(val) => return self.apply_and_eval(Some(app), val),
                                 Err(err) => return Err(err),
                             }
                         }
                     }
                     TAKEALL => {
                         match self.stack.value(v, StackOp::TakeAll) {
-                            Ok(val) => return self.apply_and_eval(val),
+                            Ok(val) => return self.apply_and_eval(Some(app), val),
                             Err(err) => return Err(err),
                         }
                     }
@@ -55,19 +55,19 @@ impl BUNDCore {
             }
             StackOp::TakeOne => {
                 match self.stack.value(v, StackOp::TakeOne) {
-                    Ok(val) => return self.apply_and_eval(val),
+                    Ok(val) => return self.apply_and_eval(Some(app), val),
                     Err(err) => return Err(err),
                 }
             }
             StackOp::TakeTwo => {
                 match self.stack.value(v, StackOp::TakeTwo) {
-                    Ok(val) => return self.apply_and_eval(val),
+                    Ok(val) => return self.apply_and_eval(Some(app), val),
                     Err(err) => return Err(err),
                 }
             }
             StackOp::TakeAll => {
                 match self.stack.value(v, StackOp::TakeAll) {
-                    Ok(val) => return self.apply_and_eval(val),
+                    Ok(val) => return self.apply_and_eval(Some(app), val),
                     Err(err) => return Err(err),
                 }
             }
