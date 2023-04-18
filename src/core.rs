@@ -9,6 +9,7 @@ pub struct BUNDCore{
     pub version:        String,
     pub associations:   HashMap<String, VecDeque<Value>>,
     pub applicatives:   HashMap<String, VecDeque<CtxApplicative>>,
+    pub fun:            HashMap<String, Value>,
     pub stack:          TS
 }
 
@@ -19,6 +20,7 @@ impl BUNDCore {
             stack:          TS::new(),
             associations:   HashMap::new(),
             applicatives:   HashMap::new(),
+            fun:            HashMap::new(),
         }
     }
 }
